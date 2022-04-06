@@ -1,0 +1,39 @@
+
+.modals{
+    background-color:#f3f7ff ;
+}
+.forms{
+    
+    padding: 1em;
+    margin: auto;
+}
+
+.forms input{
+    width: 90%;
+    
+    background-color: rgb(254, 252, 252);
+    border-radius: 7px;
+    margin: 8px auto;
+    padding: 0.9rem 1rem;
+    border: none;
+    
+    align-items: center;
+    
+    box-shadow: 0px 2px 3px 2px rgba(0,0,0,0.2),
+    0px 2px 3px -3px rgba(0,0,0,0.3);
+
+
+}
+
+.price{
+    display: flex;
+}
+
+.price label{
+    padding-top: 12px;
+    text-align: center;
+}
+
+input:focus{
+    outline: none;
+}
