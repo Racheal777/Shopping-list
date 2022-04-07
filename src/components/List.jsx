@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Forms from "./Forms";
+// import Forms from "./Forms";
 
 export default function List({task, addList}) {
   const [check, setCheck] = useState(false);
@@ -15,10 +15,9 @@ export default function List({task, addList}) {
   };
   return (
     <div>
-
-
-      
-      <main className="item">
+        <main className="item" style={check ? {backgroundColor: "gray"}: {backgroundColor: "white"}}>
+        
+        
         <div className="item-name">
           <input
             type="checkbox"
@@ -28,7 +27,7 @@ export default function List({task, addList}) {
             onChange={() => checking()}
           />
 
-          <p>{task.item}</p>
+          <p>{task.list}</p>
         </div>
 
         <div className="item-price">
@@ -38,8 +37,12 @@ export default function List({task, addList}) {
             <i class="fa-solid fa-trash-can"></i>
           </button>
         </div>
-      </main>
+      
 
+       
+        </main>
+      
+      
     </div>
   );
 }

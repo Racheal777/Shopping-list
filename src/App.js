@@ -2,18 +2,25 @@ import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Lists from "./components/Lists";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Forms from "./components/Forms";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
+import "./form.css";
 
 function App() {
+  
+  // Modal open state
+  const [modal, setModal] = useState(false);
+
+  // Toggle for Modal
+  const toggle = () => setModal(!modal);
+
   const [input, setInput] = useState("");
+  const [price, setPrice] = useState(7);
+  const [qty, setQty] = useState();
+  const [total, setTotal] = useState(0)
   const [lists, setLists] = useState([
-    {
-      id: 1,
-      list: "Dress",
-      price: 500.0,
-      qty: 3,
-    },
   ]);
 
   const addList = (e) => {
@@ -21,16 +28,39 @@ function App() {
     const list = {
       id: lists.length + 1,
       list: input,
-      price: 50.0,
-      qty: 2,
+      price: price,
+      qty: qty,
       status: "Pending",
     };
 
     setLists([...lists, list]);
+    setInput('')
+    setPrice()
+    setQty()
+    toggle()
 
-    console.log(list);
+    
   };
 
+
+  //adding all price
+  // const mapped = todos.map((item) => {
+    //     return item.id === id
+    //       ? { ...item, status: item.status === status ? "Done" : status }
+    //       : { ...item };
+    //   });
+  const addPrice = () => {
+    // const allPrice = lists.map((item )=> {
+    //   return item.id === id? {...item, price: item.price }
+    // })
+    const prices = price + 6 
+   
+    const Allprice = lists.filter((item) => item.price === item.price)
+
+    setTotal(prices)
+console.log(prices)
+    console.log(Allprice)
+  }
   return (
     <div className="App">
       <div className="main-page">
@@ -55,7 +85,7 @@ function App() {
 
           <div className="amounts">
             <p>Current budget GHC</p>
-            <h4>200.00</h4>
+            <h4>600.00</h4>
           </div>
         </section>
 
@@ -72,8 +102,9 @@ function App() {
 
         <section>
           <div className="amount">
+            <button onClick={addPrice}>add price</button>
             <p>Total Amount</p>
-            <h4> GHC 200.00</h4>
+            <h4> GHC {total}</h4>
           </div>
 
           <div className="amount">
@@ -82,10 +113,142 @@ function App() {
           </div>
         </section>
 
-        <Forms addList={addList} />
+        {/* <Form addList={addList} /> */}
+
+        <div
+      style={{
+        display: "block",
+        width: 700,
+        padding: 30,
+      }}
+    >
+      <Button color="primary" onClick={toggle}>
+        {" "}
+        <i class="fa-solid fa-circle-plus"></i>
+      </Button>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle} className="modals">
+          Add a List{" "}
+        </ModalHeader>
+        <ModalBody className="modals">
+          <form className="forms" onSubmit={addList}>
+            <div>
+              <label> Name</label>
+              <input
+                type="text"
+                placeholder="add a todo ...."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+            </div>
+
+            <div className="price">
+              <div>
+                <label>Price</label>
+                <input type="number" value={price}
+                onChange={(e) => setPrice(e.target.value)}/>
+              </div>
+
+              <div>
+                <label>Quantity</label>
+                <input type="number" value={qty}
+                onChange={(e) => setQty(e.target.value)} />
+              </div>
+            </div>
+
+            <div className="select">
+            <label for="cars">Choose a Category:</label>
+                <select>
+                <option value="General">General</option>
+                <option value="Groceries">Groceries</option>
+                </select>
+            </div>
+          </form>
+        </ModalBody>
+        <ModalFooter className="modals">
+          <Button color="primary" onClick={addList}  disabled={!input}>
+            {" "}
+            Add a todo
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </div>
       </div>
     </div>
   );
 }
 
 export default App;
+
+
+function Form({addList}) {
+
+    
+  // Modal open state
+  const [modal, setModal] = useState(false);
+
+  // Toggle for Modal
+  const toggle = () => setModal(!modal);
+
+  const [input, setInput] = useState("");
+
+  console.log(addList);
+  return (
+    <div
+      style={{
+        display: "block",
+        width: 700,
+        padding: 30,
+      }}
+    >
+      <Button color="primary" onClick={toggle}>
+        {" "}
+        <i class="fa-solid fa-circle-plus"></i>
+      </Button>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle} className="modals">
+          Add a List{" "}
+        </ModalHeader>
+        <ModalBody className="modals">
+          <form className="forms" onSubmit={addList}>
+            <div>
+              <label> Name</label>
+              <input
+                type="text"
+                placeholder="add a todo ...."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+            </div>
+
+            <div className="price">
+              <div>
+                <label>Price</label>
+                <input type="number" />
+              </div>
+
+              <div>
+                <label>Quantity</label>
+                <input type="number" />
+              </div>
+            </div>
+
+            <div className="select">
+            <label for="cars">Choose a Category:</label>
+                <select>
+                <option value="General">General</option>
+                <option value="Groceries">Groceries</option>
+                </select>
+            </div>
+          </form>
+        </ModalBody>
+        <ModalFooter className="modals">
+          <Button color="primary" onClick={addList}  disabled={!input}>
+            {" "}
+            Add a todo
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </div>
+  );
+}
