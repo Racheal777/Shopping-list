@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // import Forms from "./Forms";
 
-export default function List({task, addList}) {
+export default function List({task, addList, deletedList}) {
   const [check, setCheck] = useState(false);
 
   console.log(task)
@@ -33,7 +33,7 @@ export default function List({task, addList}) {
         <div className="item-price">
           <p>{task.price}</p>
           <p>{task.qty}</p>
-          <button>
+          <button onClick={() => deletedList(task.id)}>
             <i class="fa-solid fa-trash-can"></i>
           </button>
         </div>

@@ -2,14 +2,15 @@ import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Lists from "./components/Lists";
-import { useRef, useState } from "react";
-import Forms from "./components/Forms";
+import {  useState } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
 import "./form.css";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 function App() {
-  
   // Modal open state
   const [modal, setModal] = useState(false);
 
@@ -19,9 +20,8 @@ function App() {
   const [input, setInput] = useState("");
   const [price, setPrice] = useState(7);
   const [qty, setQty] = useState();
-  const [total, setTotal] = useState(0)
-  const [lists, setLists] = useState([
-  ]);
+  const [total, setTotal] = useState(0);
+  const [lists, setLists] = useState([]);
 
   const addList = (e) => {
     e.preventDefault();
@@ -34,33 +34,20 @@ function App() {
     };
 
     setLists([...lists, list]);
-    setInput('')
-    setPrice()
-    setQty()
-    toggle()
-
-    
+    setInput("");
+    setPrice();
+    setQty();
+    toggle();
   };
 
+  
 
-  //adding all price
-  // const mapped = todos.map((item) => {
-    //     return item.id === id
-    //       ? { ...item, status: item.status === status ? "Done" : status }
-    //       : { ...item };
-    //   });
-  const addPrice = () => {
-    // const allPrice = lists.map((item )=> {
-    //   return item.id === id? {...item, price: item.price }
-    // })
-    const prices = price + 6 
-   
-    const Allprice = lists.filter((item) => item.price === item.price)
-
-    setTotal(prices)
-console.log(prices)
-    console.log(Allprice)
+  //deleting a list
+  const deletedList = (id) => {
+    const deleted = lists.filter((item) => item.id !== id)
+    console.log(deleted)
   }
+  
   return (
     <div className="App">
       <div className="main-page">
@@ -93,162 +80,95 @@ console.log(prices)
           <p>Item</p>
 
           <div className="title2">
-            <p>Price</p>
+            <p>Price(GHC)</p>
             <p>Qty</p>
           </div>
         </div>
 
-        <Lists list={lists} />
+        <Lists list={lists} deletedList={deletedList}/>
 
         <section>
           <div className="amount">
-            <button onClick={addPrice}>add price</button>
-            <p>Total Amount</p>
-            <h4> GHC {total}</h4>
+            {/* <button onClick={addPrice}>add price</button> */}
+            {/* <p>Total Amount</p>
+            <h4> GHC {total}</h4> */}
           </div>
 
           <div className="amount">
-            <p>Remaining Cash</p>
-            <h4> GHC 400.00</h4>
+            {/* <p>Remaining Cash</p> */}
+            {/* <h4> GHC 400.00</h4> */}
           </div>
         </section>
 
         {/* <Form addList={addList} /> */}
 
         <div
-      style={{
-        display: "block",
-        width: 700,
-        padding: 30,
-      }}
-    >
-      <Button color="primary" onClick={toggle}>
-        {" "}
-        <i class="fa-solid fa-circle-plus"></i>
-      </Button>
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle} className="modals">
-          Add a List{" "}
-        </ModalHeader>
-        <ModalBody className="modals">
-          <form className="forms" onSubmit={addList}>
-            <div>
-              <label> Name</label>
-              <input
-                type="text"
-                placeholder="add a todo ...."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-            </div>
-
-            <div className="price">
-              <div>
-                <label>Price</label>
-                <input type="number" value={price}
-                onChange={(e) => setPrice(e.target.value)}/>
-              </div>
-
-              <div>
-                <label>Quantity</label>
-                <input type="number" value={qty}
-                onChange={(e) => setQty(e.target.value)} />
-              </div>
-            </div>
-
-            <div className="select">
-            <label for="cars">Choose a Category:</label>
-                <select>
-                <option value="General">General</option>
-                <option value="Groceries">Groceries</option>
-                </select>
-            </div>
-          </form>
-        </ModalBody>
-        <ModalFooter className="modals">
-          <Button color="primary" onClick={addList}  disabled={!input}>
+          style={{
+            display: "block",
+            width: 700,
+            padding: 30,
+          }}
+        >
+          <Button color="primary" onClick={toggle}>
             {" "}
-            Add a todo
+            <i class="fa-solid fa-circle-plus"></i>
           </Button>
-        </ModalFooter>
-      </Modal>
-    </div>
+          <Modal isOpen={modal} toggle={toggle}>
+            <ModalHeader toggle={toggle} className="modals">
+              Add a List{" "}
+            </ModalHeader>
+            <ModalBody className="modals">
+              <form className="forms" onSubmit={addList}>
+                <div>
+                  <label> Name</label>
+                  <input
+                    type="text"
+                    placeholder="add a todo ...."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                  />
+                </div>
+
+                <div className="price">
+                  <div>
+                    <label>Price</label>
+                    <input
+                      type="number"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label>Quantity</label>
+                    <input
+                      type="number"
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="select">
+                  <label for="cars">Choose a Category:</label>
+                  <select>
+                    <option value="General">General</option>
+                    <option value="Groceries">Groceries</option>
+                  </select>
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter className="modals">
+              <Button color="primary" onClick={addList} disabled={!input}>
+                {" "}
+                Add a todo
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </div>
       </div>
     </div>
   );
 }
 
 export default App;
-
-
-function Form({addList}) {
-
-    
-  // Modal open state
-  const [modal, setModal] = useState(false);
-
-  // Toggle for Modal
-  const toggle = () => setModal(!modal);
-
-  const [input, setInput] = useState("");
-
-  console.log(addList);
-  return (
-    <div
-      style={{
-        display: "block",
-        width: 700,
-        padding: 30,
-      }}
-    >
-      <Button color="primary" onClick={toggle}>
-        {" "}
-        <i class="fa-solid fa-circle-plus"></i>
-      </Button>
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle} className="modals">
-          Add a List{" "}
-        </ModalHeader>
-        <ModalBody className="modals">
-          <form className="forms" onSubmit={addList}>
-            <div>
-              <label> Name</label>
-              <input
-                type="text"
-                placeholder="add a todo ...."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-            </div>
-
-            <div className="price">
-              <div>
-                <label>Price</label>
-                <input type="number" />
-              </div>
-
-              <div>
-                <label>Quantity</label>
-                <input type="number" />
-              </div>
-            </div>
-
-            <div className="select">
-            <label for="cars">Choose a Category:</label>
-                <select>
-                <option value="General">General</option>
-                <option value="Groceries">Groceries</option>
-                </select>
-            </div>
-          </form>
-        </ModalBody>
-        <ModalFooter className="modals">
-          <Button color="primary" onClick={addList}  disabled={!input}>
-            {" "}
-            Add a todo
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </div>
-  );
-}

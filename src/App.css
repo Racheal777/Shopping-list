@@ -44,12 +44,12 @@ text-align: center;
   justify-content: space-between;
   width: 50%;
   margin:  2em auto 0 auto;
-  padding: 4px 8px;
+  padding: 1px 8px;
 }
 
 .title2{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin: 0 2.2em;
 }
 
