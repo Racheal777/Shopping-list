@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
 import "../form.css";
 
-function Forms({addList}) {
+function Forms({ addList }) {
 
-    
+  console.log(addList);
   // Modal open state
-  const [modal, setModal] = React.useState(false);
+  const [modal, setModal] = useState(false);
 
   // Toggle for Modal
   const toggle = () => setModal(!modal);
 
   const [input, setInput] = useState("");
 
-  console.log(addList);
+  // useEffect(() => {
+  //   const get = () => {
+  //     if(modal === false) {
+  //       setModal(true)
+  //     } else {
+  //       setModal(false)
+  //     }
+  //   }
+  //   get();
+  // }, [])
+
   return (
     <div
       style={{
@@ -32,7 +42,7 @@ function Forms({addList}) {
           Add a List{" "}
         </ModalHeader>
         <ModalBody className="modals">
-          <form className="forms" onSubmit={addList}>
+          <form className="forms">
             <div>
               {/* <label> Name</label> */}
               <input

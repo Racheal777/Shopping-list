@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Lists from "./components/Lists";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Forms from "./components/Forms";
 
 function App() {
@@ -30,6 +30,8 @@ function App() {
 
     console.log(list);
   };
+
+  
 
   return (
     <div className="App">
