@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 // import Forms from "./Forms";
 
-export default function List({task, addList, deletedList}) {
+export default function List({task, addList, deletedList, updatedList}) {
   const [check, setCheck] = useState(false);
 
-  console.log(task)
-  const checking = () => {
+   console.log(task)
+  const checking = (id) => {
     if (check === false) {
       setCheck(true);
     } else {
@@ -15,7 +15,7 @@ export default function List({task, addList, deletedList}) {
   };
   return (
     <div>
-        <main className="item" style={check ? {backgroundColor: "gray"}: {backgroundColor: "white"}}>
+        <main className="item" style={check || task.status === "Done"? {backgroundColor: "grey"}:  {backgroundColor: "white"}}>
         
         
         <div className="item-name">
@@ -24,7 +24,7 @@ export default function List({task, addList, deletedList}) {
             className="check"
             name="Check"
             checked={check}
-            onChange={() => checking()}
+            onChange={() => checking(task.id)} onClick={() => updatedList(task.id)}
           />
 
           <p>{task.list}</p>

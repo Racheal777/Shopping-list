@@ -7,8 +7,7 @@ import {  useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
 import "./form.css";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+
 
 function App() {
   // Modal open state
@@ -18,10 +17,12 @@ function App() {
   const toggle = () => setModal(!modal);
 
   const [input, setInput] = useState("");
-  const [price, setPrice] = useState(7);
-  const [qty, setQty] = useState();
+  const [price, setPrice] = useState(0);
+  const [qty, setQty] = useState(1);
   const [total, setTotal] = useState(0);
   const [lists, setLists] = useState([]);
+  const [category, setCategory] = useState()
+  const [budget, SetBudget] = useState(0)
 
   const addList = (e) => {
     e.preventDefault();
@@ -31,6 +32,7 @@ function App() {
       price: price,
       qty: qty,
       status: "Pending",
+      category: category
     };
 
     setLists([...lists, list]);
@@ -41,11 +43,29 @@ function App() {
   };
 
   
+ //updating a list status
+ //mapping through to get all the list
+ //spreading the object with spread operator to get access to individual item
+ //if status is pending change to done else pending
+ const updatedList = (id) => {
+   
+   const updated = lists.map((list) => {
+     return list.id === id? {...list, status: list.status === "Pending" ? "Done": "Pending"}:
+     {...list}
+     
+    //  return list.id === id? { ...list, status: list.status === 'Pending' ? "Done" : 'Pending' }
+    //     : { ...list };      
+   })
+   setLists([...updated])
+  //  console.log(list);
+
+ } 
 
   //deleting a list
   const deletedList = (id) => {
     const deleted = lists.filter((item) => item.id !== id)
     console.log(deleted)
+    setLists([...deleted])
   }
   
   return (
@@ -68,24 +88,10 @@ function App() {
               <p>10 tasks</p>
               <h4>General</h4>
             </div>
-          </div>
+          </div>         
+        </section>       
 
-          <div className="amounts">
-            <p>Current budget GHC</p>
-            <h4>600.00</h4>
-          </div>
-        </section>
-
-        <div className="title">
-          <p>Item</p>
-
-          <div className="title2">
-            <p>Price(GHC)</p>
-            <p>Qty</p>
-          </div>
-        </div>
-
-        <Lists list={lists} deletedList={deletedList}/>
+        <Lists list={lists} deletedList={deletedList} updatedList={updatedList}/>
 
         <section>
           <div className="amount">
@@ -100,7 +106,7 @@ function App() {
           </div>
         </section>
 
-        {/* <Form addList={addList} /> */}
+       
 
         <div
           style={{
@@ -144,6 +150,7 @@ function App() {
                     <input
                       type="number"
                       value={qty}
+                      defaultValue= {1}
                       onChange={(e) => setQty(e.target.value)}
                     />
                   </div>
@@ -151,7 +158,7 @@ function App() {
 
                 <div className="select">
                   <label for="cars">Choose a Category:</label>
-                  <select>
+                  <select value='General' onChange={(e) => setCategory(e.target.value)}>
                     <option value="General">General</option>
                     <option value="Groceries">Groceries</option>
                   </select>
