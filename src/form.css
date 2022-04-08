@@ -1,4 +1,6 @@
-
+*{
+    overflow-x: hidden;
+}
 .modals{
     background-color:#f3f7ff ;
 }
@@ -9,7 +11,7 @@
 }
 
 .forms input{
-    width: 90%;
+    width: 98%;
     
     background-color: rgb(254, 252, 252);
     border-radius: 7px;
@@ -25,15 +27,121 @@
 
 }
 
+select{
+    width: 98%;
+    
+    background-color: rgb(254, 252, 252);
+    border-radius: 7px;
+    margin: 8px auto;
+    padding: 0.9rem 1rem;
+    border: none;
+    
+    align-items: center;
+    
+    box-shadow: 0px 2px 3px 2px rgba(0,0,0,0.2),
+    0px 2px 3px -3px rgba(0,0,0,0.3);  
+}
+
+.select{
+    margin: auto;
+}
+label{
+    display: block;
+}
 .price{
     display: flex;
 }
 
 .price label{
     padding-top: 12px;
-    text-align: center;
+    /* text-align: center; */
 }
 
 input:focus{
     outline: none;
 }
+
+.form-page{
+    background-color: #011956;
+    overflow-x: auto;
+    overflow-y: auto;
+    min-height: 100vh;
+}
+
+.login-form {
+    border: 2px solid #d3d3d3;
+    border-radius: 15px;
+    /* margin-bottom: 30px; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    padding: 1em;
+    text-align: left;
+    width: 500px;
+    background-color: #f3f7ff;
+  }
+  .form-title{
+      text-align: center;
+      /* padding: 10px 0; */
+
+  }
+
+  .form-title h2{
+      font-size: 1.7em;
+    color: #011956;
+
+  }
+  .form {
+    padding: 1em;
+  }
+  
+  .form Input{
+      padding: 10px 8px;
+      width: 98%;
+
+  }
+
+  .form button{
+      background-color: #011956;
+      width: 100%;
+      padding: 15px 0;
+      margin: 14px auto;
+      border-radius: 5px;
+      display: grid; 
+  grid-template-columns: 3fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 20px 0px; 
+  grid-template-areas: 
+    ". ."; 
+  justify-content: center; 
+
+  }
+
+  #icon{
+    margin: auto;
+    align-items: flex-end;
+      /* text-align: left;
+      align-items: flex-end;
+      text-align: end;
+      display: flex;
+      justify-content: flex-end; */
+
+  }
+  label {
+    font-weight: 600;
+    text-align: left;
+  }
+  
+  .form-name{
+      display: flex;
+      justify-content: space-between;
+      
+  }
+
+  .form-name input, label{
+    gap: 15px;
+
+      /* margin: auto 0px auto 12px; */
+  }
+
+  
