@@ -51,15 +51,21 @@ function App() {
    
    const updated = lists.map((list) => {
      return list.id === id? {...list, status: list.status === "Pending" ? "Done": "Pending"}:
-     {...list}
-     
-    //  return list.id === id? { ...list, status: list.status === 'Pending' ? "Done" : 'Pending' }
-    //     : { ...list };      
+     {...list}    
    })
    setLists([...updated])
   //  console.log(list);
 
  } 
+
+// const updatedList = (id) => {
+//   const updated = lists.map((item) => {
+//     return item.id === id? {...item, status: item.status === "Pending" ? "Done" : "Pending"}:
+//     {...item}
+//   })
+//   setLists(updated)
+//   console.log(updated)
+// }
 
   //deleting a list
   const deletedList = (id) => {
@@ -108,14 +114,9 @@ function App() {
 
        
 
-        <div
-          style={{
-            display: "block",
-            width: 700,
-            padding: 30,
-          }}
-        >
-          <Button color="primary" onClick={toggle}>
+        <div className="form-but">
+          <Button color="primary" onClick={toggle} data-toggle="tooltip" 
+          data-placement="" title="Add your List">
             {" "}
             <i class="fa-solid fa-circle-plus"></i>
           </Button>

@@ -15,7 +15,7 @@ export default function List({task, addList, deletedList, updatedList}) {
   };
   return (
     <div>
-        <main className="item" style={check || task.status === "Done"? {backgroundColor: "grey"}:  {backgroundColor: "white"}}>
+        <main className="item" style={check || task.status === "Done"? {backgroundColor: "grey", textDecoration: "line-through"}:  {backgroundColor: "white"}}>
         
         
         <div className="item-name">
