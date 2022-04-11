@@ -23,6 +23,7 @@ function App() {
   const [lists, setLists] = useState([]);
   const [category, setCategory] = useState()
   const [budget, SetBudget] = useState(0)
+  const [dark, setDark] = useState(false)
 
   const addList = (e) => {
     e.preventDefault();
@@ -58,14 +59,7 @@ function App() {
 
  } 
 
-// const updatedList = (id) => {
-//   const updated = lists.map((item) => {
-//     return item.id === id? {...item, status: item.status === "Pending" ? "Done" : "Pending"}:
-//     {...item}
-//   })
-//   setLists(updated)
-//   console.log(updated)
-// }
+
 
   //deleting a list
   const deletedList = (id) => {
@@ -74,8 +68,26 @@ function App() {
     setLists([...deleted])
   }
   
+
+  //dark mode
+  const darkMode = () => {
+    if(dark === false){
+      setDark(true)
+    }else{
+      setDark(false)
+    }
+  }
+
+  console.log(dark)
+
   return (
     <div className="App">
+
+      <div className="btn">
+        <button className="toggle" onClick={darkMode}><i class="fa-solid fa-moon"></i></button>
+      </div>
+
+
       <div className="main-page">
         <h2> Shopping List</h2>
         <p>Hello, Racheal what are you going to buy</p>

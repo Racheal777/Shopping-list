@@ -6,6 +6,41 @@
   /* overflow-y: hidden; */
 }
 
+/* dark mode */
+
+:root{
+  --primary-color: rgb(21, 21, 91);
+  --secondary-color: #f3f7ff;
+}
+
+html{
+  transition: all 0.5s ease-in;
+}
+
+html.dark{
+  --primary-color: white;
+    --secondary-color: #333;
+}
+
+html.dark{
+  background-color: black;
+  color: var(--primary-color);
+
+}
+
+.toggle{
+  background-color: var(--primary-color) ;
+  color: var(--secondary-color);
+  border: none;
+  padding: 10px 12px;
+  border-radius: 4px;
+  /* position: absolute;
+  top: 100px; */
+
+
+}
+
+
 .App {
   /* text-align: center; */
   background-color: #f3f7ff;
