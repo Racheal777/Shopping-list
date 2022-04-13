@@ -115,7 +115,7 @@ function App() {
             padding: 30,
           }}
         >
-          <Button color="primary" onClick={toggle}>
+          <Button color="primary" onClick={toggle} title="add an item">
             {" "}
             <i class="fa-solid fa-circle-plus"></i>
           </Button>
