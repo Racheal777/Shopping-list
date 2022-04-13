@@ -30,8 +30,8 @@ function App() {
     const list = {
       id: lists.length + 1,
       list: input,
-      price: price,
-      qty: qty,
+      price: parseInt(price, 10),
+      qty: parseInt(qty, 10),
       status: "Pending",
       category: category
     };
@@ -89,11 +89,11 @@ function App() {
 
 
       <div className="main-page">
-        <h2> Shopping List</h2>
+       
         <p>Hello, Racheal what are you going to buy</p>
         <section>
           <div className="text">
-            <h2>Categories</h2>
+           
           </div>
 
           <div className="categories">
