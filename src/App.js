@@ -17,11 +17,11 @@ function App() {
   const toggle = () => setModal(!modal);
 
   const [input, setInput] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(null);
   const [qty, setQty] = useState(1);
   const [total, setTotal] = useState(0);
   const [lists, setLists] = useState([]);
-  const [category, setCategory] = useState()
+  const [category, setCategory] = useState('General')
   const [budget, SetBudget] = useState(0)
   const [dark, setDark] = useState(false)
 
@@ -152,7 +152,7 @@ function App() {
                   <div>
                     <label>Price</label>
                     <input
-                      type="number"
+                      type="Number"
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
                     />
@@ -170,8 +170,8 @@ function App() {
                 </div>
 
                 <div className="select">
-                  <label for="cars">Choose a Category:</label>
-                  <select value='General' onChange={(e) => setCategory(e.target.value)}>
+                  <label for="">Choose a Category:</label>
+                  <select value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value="General">General</option>
                     <option value="Groceries">Groceries</option>
                   </select>
