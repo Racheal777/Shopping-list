@@ -17,20 +17,21 @@ function App() {
   const toggle = () => setModal(!modal);
 
   const [input, setInput] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(null);
   const [qty, setQty] = useState(1);
   const [total, setTotal] = useState(0);
   const [lists, setLists] = useState([]);
-  const [category, setCategory] = useState()
+  const [category, setCategory] = useState('General')
   const [budget, SetBudget] = useState(0)
+  const [dark, setDark] = useState(false)
 
   const addList = (e) => {
     e.preventDefault();
     const list = {
       id: lists.length + 1,
       list: input,
-      price: price,
-      qty: qty,
+      price: parseInt(price, 10),
+      qty: parseInt(qty, 10),
       status: "Pending",
       category: category
     };
@@ -51,15 +52,14 @@ function App() {
    
    const updated = lists.map((list) => {
      return list.id === id? {...list, status: list.status === "Pending" ? "Done": "Pending"}:
-     {...list}
-     
-    //  return list.id === id? { ...list, status: list.status === 'Pending' ? "Done" : 'Pending' }
-    //     : { ...list };      
+     {...list}    
    })
    setLists([...updated])
   //  console.log(list);
 
  } 
+
+
 
   //deleting a list
   const deletedList = (id) => {
@@ -68,14 +68,32 @@ function App() {
     setLists([...deleted])
   }
   
+
+  //dark mode
+  const darkMode = () => {
+    if(dark === false){
+      setDark(true)
+    }else{
+      setDark(false)
+    }
+  }
+
+  console.log(dark)
+
   return (
     <div className="App">
+
+      <div className="btn">
+        <button className="toggle" onClick={darkMode}><i class="fa-solid fa-moon"></i></button>
+      </div>
+
+
       <div className="main-page">
-        <h2> Shopping List</h2>
+       
         <p>Hello, Racheal what are you going to buy</p>
         <section>
           <div className="text">
-            <h2>Categories</h2>
+           
           </div>
 
           <div className="categories">
@@ -108,14 +126,9 @@ function App() {
 
        
 
-        <div
-          style={{
-            display: "block",
-            width: 700,
-            padding: 30,
-          }}
-        >
-          <Button color="primary" onClick={toggle} title="add an item">
+        <div className="form-but">
+          <Button color="primary" onClick={toggle} data-toggle="tooltip" 
+          data-placement="" title="Add your List">
             {" "}
             <i class="fa-solid fa-circle-plus"></i>
           </Button>
@@ -139,7 +152,7 @@ function App() {
                   <div>
                     <label>Price</label>
                     <input
-                      type="number"
+                      type="Number"
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
                     />
@@ -157,8 +170,8 @@ function App() {
                 </div>
 
                 <div className="select">
-                  <label for="cars">Choose a Category:</label>
-                  <select value='General' onChange={(e) => setCategory(e.target.value)}>
+                  <label for="">Choose a Category:</label>
+                  <select value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value="General">General</option>
                     <option value="Groceries">Groceries</option>
                   </select>

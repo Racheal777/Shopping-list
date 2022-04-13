@@ -24,20 +24,26 @@ export default function Lists({ list, addList, deletedList, updatedList }) {
       <div className="amounts">
             <p>Current budget GHC</p>
             
-            <h4>{budget}</h4>
+            
          
-            <div style={{
+            <div className="all" style={{
             // display: "flex",
-            width: 1500,
-            padding: 0,
-            marginBottom: 20
+            // width: 1500,
+            // padding: 0,
+            // marginBottom: 20
             }} >
-              {/* <label></label> */}
               
+              <h4>{budget}</h4>
+            
+             
+              {/* <label></label> */}
+             <div>
+             
           <Button color="success" onClick={toggle} data-toggle="tooltip" 
           data-placement="" title="Add your Budget">     
             <i class="fa-solid fa-circle-plus"></i>
           </Button>
+          </div> 
 
           <Modal isOpen={modal} toggle={toggle}>
             <ModalHeader toggle={toggle} className="modals">
