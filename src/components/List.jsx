@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 export default function List({task, addList, deletedList, updatedList}) {
   const [check, setCheck] = useState(false);
+  const [completed, setCompleted] = useState(false)
 
    console.log(task)
   const checking = (id) => {
@@ -13,10 +14,25 @@ export default function List({task, addList, deletedList, updatedList}) {
       setCheck(false);
     }
   };
+
+
+  const checkStatus = () => {
+    if(task.status === "Done"){
+      setCompleted(true)
+      setCheck(true)
+    }else{
+      setCompleted(false)
+    }
+  }
   return (
     <div>
-        <main className="item" style={check || task.status === "Done"? {backgroundColor: "grey", textDecoration: "line-through"}:  {backgroundColor: "white"}}>
-        
+
+      
+      
+        <main style={ 
+          
+          
+          completed && {backgroundColor: "grey", textDecoration: "line-through"}}>
         
         <div className="item-name">
           <input
@@ -24,7 +40,7 @@ export default function List({task, addList, deletedList, updatedList}) {
             className="check"
             name="Check"
             checked={check}
-            onChange={() => checking(task.id)} onClick={() => updatedList(task.id)}
+            onChange={() => checking(task)} onClick={() => updatedList(task.id)}
           />
 
           <p>{task.list}</p>
@@ -37,10 +53,12 @@ export default function List({task, addList, deletedList, updatedList}) {
             <i class="fa-solid fa-trash-can"></i>
           </button>
         </div>
+      </main>
       
-
+          
+        
        
-        </main>
+        
       
       
     </div>
