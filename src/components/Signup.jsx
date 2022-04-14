@@ -122,7 +122,7 @@ const Signup = () => {
 
           
           <Button onClick={updateUser}>
-            Register <i id="icon" class="fa-solid fa-arrow-right"></i>
+            Register <i id="icon" className="fa-solid fa-arrow-right"></i>
           </Button>
         </Form>
       </div>

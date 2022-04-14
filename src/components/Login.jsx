@@ -52,7 +52,7 @@ const Login = () => {
             />
           </FormGroup>
           <Button onClick={updateUser}>
-            Login <i id="icon" class="fa-solid fa-arrow-right"></i>
+            Login <i id="icon" className="fa-solid fa-arrow-right"></i>
           </Button>
         </Form>
       </div>

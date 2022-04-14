@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Lists from "./components/Lists";
-import {  useState } from "react";
+import { useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
@@ -43,21 +43,21 @@ function App() {
     toggle();
   };
 
-  
- //updating a list status
- //mapping through to get all the list
- //spreading the object with spread operator to get access to individual item
- //if status is pending change to done else pending
- const updatedList = (id) => {
-   
-   const updated = lists.map((list) => {
-     return list.id === id? {...list, status: list.status === "Pending" ? "Done": "Pending"}:
-     {...list}    
-   })
-   setLists([...updated])
-  //  console.log(list);
 
- } 
+  //updating a list status
+  //mapping through to get all the list
+  //spreading the object with spread operator to get access to individual item
+  //if status is pending change to done else pending
+  const updatedList = (id) => {
+
+    const updated = lists.map((list) => {
+      return list.id === id ? { ...list, status: list.status === "Pending" ? "Done" : "Pending" } :
+        { ...list }
+    })
+    setLists([...updated])
+    //  console.log(list);
+
+  }
 
 
 
@@ -67,13 +67,13 @@ function App() {
     console.log(deleted)
     setLists([...deleted])
   }
-  
+
 
   //dark mode
   const darkMode = () => {
-    if(dark === false){
+    if (dark === false) {
       setDark(true)
-    }else{
+    } else {
       setDark(false)
     }
   }
@@ -84,16 +84,16 @@ function App() {
     <div className="App">
 
       <div className="btn">
-        <button className="toggle" onClick={darkMode}><i class="fa-solid fa-moon"></i></button>
+        <button className="toggle" onClick={darkMode}><i className="fa-solid fa-moon"></i></button>
       </div>
 
 
       <div className="main-page">
-       
+
         <p>Hello, Racheal what are you going to buy</p>
         <section>
           <div className="text">
-           
+
           </div>
 
           <div className="categories">
@@ -106,10 +106,10 @@ function App() {
               <p>10 tasks</p>
               <h4>General</h4>
             </div>
-          </div>         
-        </section>       
+          </div>
+        </section>
 
-        <Lists list={lists} deletedList={deletedList} updatedList={updatedList}/>
+        <Lists list={lists} deletedList={deletedList} updatedList={updatedList} />
 
         <section>
           <div className="amount">
@@ -124,13 +124,13 @@ function App() {
           </div>
         </section>
 
-       
+
 
         <div className="form-but">
-          <Button color="primary" onClick={toggle} data-toggle="tooltip" 
-          data-placement="" title="Add your List">
+          <Button color="primary" onClick={toggle} data-toggle="tooltip"
+            data-placement="" title="Add your List">
             {" "}
-            <i class="fa-solid fa-circle-plus"></i>
+            <i className="fa-solid fa-circle-plus"></i>
           </Button>
           <Modal isOpen={modal} toggle={toggle}>
             <ModalHeader toggle={toggle} className="modals">
@@ -163,7 +163,7 @@ function App() {
                     <input
                       type="number"
                       value={qty}
-                      defaultValue= {1}
+                      defaultValue={1}
                       onChange={(e) => setQty(e.target.value)}
                     />
                   </div>

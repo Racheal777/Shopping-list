@@ -41,7 +41,7 @@ export default function Lists({ list, addList, deletedList, updatedList }) {
              
           <Button color="success" onClick={toggle} data-toggle="tooltip" 
           data-placement="" title="Add your Budget">     
-            <i class="fa-solid fa-circle-plus"></i>
+            <i className="fa-solid fa-circle-plus"></i>
           </Button>
           </div> 
 
