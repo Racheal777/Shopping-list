@@ -4,34 +4,32 @@ import { Button, Form, FormGroup, Input, Label, NavLink } from "reactstrap";
 
 const Signup = () => {
   const [isconfirm, setIsconfirm] = useState(false)
-  const [user, setUser] = useState({
-    firstName : "",
-    lastName: "",
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "", 
-  })
+  
+  const [ firstName, setfirstName ] = useState('')
+  const [ lastName,  setlastName ] = useState('')
+  const [ email, setEmail ] = useState('')
+  const [ username, setUsername ] = useState('')
+  const [ password, setPassword ] = useState('')
+  const [ confirmPassword, setconfirmPassword] = useState('')
+
 
   //grabbing users data
   const updateUser = (e) => {
-    const value = e.target.value
-    setUser({
-      ...user, [e.target.name]: value
-    })
+    e.preventDefault()
+    
 
-    console.log(user)
+    console.log()
   }
 
   //confirming password
-  const confirm = () => {
-    if(user.password === user.confirmPassword){
-      setIsconfirm(true)
-    }else{
-      setIsconfirm(false)
-    }
-  }
-  console.log(isconfirm)
+  // const confirm = () => {
+  //   if(user.password === user.confirmPassword){
+  //     setIsconfirm(true)
+  //   }else{
+  //     setIsconfirm(false)
+  //   }
+  // }
+  // console.log(isconfirm)
   
   return (
     <div className="form-page">
@@ -50,9 +48,9 @@ const Signup = () => {
               type="text"
               name="username"
               id="exampleEmail"
-              value={user.username}
+              value={username}
               placeholder="Racheal23"
-              onChange={updateUser}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </FormGroup>
 
@@ -63,9 +61,9 @@ const Signup = () => {
                 type="text"
                 name="firstName"
                 id="exampleEmail"
-                value={user.firstName}
+                value={firstName}
                 placeholder="Racheal"
-                onChange={updateUser}
+                onChange={(e) => setfirstName(e.target.value)}
               />
             </FormGroup>
             <FormGroup>
@@ -74,9 +72,9 @@ const Signup = () => {
                 type="text"
                 name="lastName"
                 id="exampleEmail"
-                value={user.lastName}
+                value={lastName}
                 placeholder="Kuranchie"
-                onChange={updateUser}
+                onChange={(e) => setlastName(e.target.value)}
               />
             </FormGroup>
           </div>
@@ -87,9 +85,9 @@ const Signup = () => {
               type="email"
               name="email"
               id="exampleEmail"
-              value={user.email}
+              value={email}
               placeholder="example@example.com"
-              onChange={updateUser}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </FormGroup>
 
@@ -100,9 +98,9 @@ const Signup = () => {
                 type="password"
                 name="password"
                 id="examplePassword"
-                value={user.password}
+                value={password}
                 placeholder="********"
-                onChange={updateUser}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </FormGroup>
 
@@ -113,16 +111,16 @@ const Signup = () => {
                 type="password"
                 name="confirmPassword"
                 id="confirmPassword"
-                value={user.confirmPassword}
+                value={confirmPassword}
                 placeholder="********"
-                onChange={updateUser}
+                onChange={(e) => setconfirmPassword(e.target.value)}
               />
             </FormGroup>
           </div>
 
           
           <Button onClick={updateUser}>
-            Register <i id="icon" class="fa-solid fa-arrow-right"></i>
+            Register <i id="icon" className="fa-solid fa-arrow-right"></i>
           </Button>
         </Form>
       </div>
