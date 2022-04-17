@@ -13,19 +13,22 @@ function App() {
   // Modal open state
   const [modal, setModal] = useState(false);
   const [modals, setModals] = useState(false);
+  const [modalss, setModalss] = useState(false);
+
   
 
   // Toggle for Modal
   const toggle = () => setModal(!modal);
   const Ontoggle = () => setModals(!modals);
+  const Ontoggles = () => setModalss(!modalss);
 
   const [input, setInput] = useState("");
   const [price, setPrice] = useState(0);
   const [qty, setQty] = useState(1);
   const [total, setTotal] = useState(0);
   const [lists, setLists] = useState([]);
-  const [category, setCategory] = useState('General')
-  const [budget, SetBudget] = useState(0)
+  // const [category, setCategory] = useState('General')
+  const [budget, SetBudget] = useState()
   const [dark, setDark] = useState(false)
 
   const addList = (e) => {
@@ -36,7 +39,7 @@ function App() {
       price: parseInt(price, 10),
       qty: parseInt(qty, 10),
       status: "Pending",
-      category: category
+      // category: category
     };
 
     setLists([...lists, list]);
@@ -52,6 +55,12 @@ function App() {
     console.log(budget)
     
     Ontoggle()
+  }
+
+  //Updating a budget
+  const updateBudget = () => {
+    SetBudget(parseInt(budget, 10))
+    Ontoggles()
   }
 
   //updating a list status
@@ -127,7 +136,56 @@ function App() {
           <div className="all" style={{}}>
            <h4>{budget}</h4>
  
+            {budget > 100 ? (
+              <>
+              <div>
+              <Button
+                color="success"
+                onClick={Ontoggles}
+                data-toggle="tooltip"
+                data-placement=""
+                title="Add your Budget"
+                disabled={!budget}
+              >
+                <i className="fa-solid fa-circle-plus"></i>
+                Edit
+              </Button>
+            </div>
+
+            <Modal isOpen={modalss} toggle={Ontoggles}>
+              <ModalHeader toggle={Ontoggles} className="modals">
+                Add Your Budget
+              </ModalHeader>
+              <ModalBody className="modals">
+                <form className="forms">
+                  <div>
+                    <label> Amount</label>
+                    <input
+                      type="number"
+                      placeholder="enter your current budget"
+                      value={budget}
+                      onChange={(e) => SetBudget(e.target.value)}
+                    />
+                  </div>
+                </form>
+              </ModalBody>
+              <ModalFooter className="modals">
+                <Button color="success" onClick={updateBudget} disabled={!budget}>
+                  Edit{" "}
+                </Button>
+              </ModalFooter>
+            </Modal>
+              
+            </>
+              
+            ) : (
+
             
+
+
+          
+            <>
+
             <div>
               <Button
                 color="success"
@@ -135,6 +193,7 @@ function App() {
                 data-toggle="tooltip"
                 data-placement=""
                 title="Add your Budget"
+                // disabled = {budget}
               >
                 <i className="fa-solid fa-circle-plus"></i>
               </Button>
@@ -163,8 +222,13 @@ function App() {
                 </Button>
               </ModalFooter>
             </Modal>
-          </div>
+          </>
+          )}
+          
         </div>
+        
+        </div>
+       
         </section>
 
         <Lists list={lists} deletedList={deletedList} updatedList={updatedList} />
@@ -231,17 +295,17 @@ function App() {
                   </div>
                 </div>
 
-                <div className="select">
+                {/* <div className="select">
                   <label for="">Choose a Category:</label>
                   <select value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value="General">General</option>
                     <option value="Groceries">Groceries</option>
                   </select>
-                </div>
+                </div> */}
               </form>
             </ModalBody>
             <ModalFooter className="modals">
-              <Button color="primary" onClick={addList} disabled={!input && !price && !qty && !category}>
+              <Button color="primary" onClick={addList} disabled={!input && !price && !qty }>
                 {" "}
                 Add a todo
               </Button>
