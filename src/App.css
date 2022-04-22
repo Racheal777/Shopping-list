@@ -210,6 +210,15 @@ text-align: center;
   padding: 30;
 }
 
+.total-btn{
+  border: none;
+  background-color: rgb(21, 135, 235);
+  padding: 6px 12px;
+  color: white;
+  margin: 1em auto;
+  border-radius: 5px;
+}
+
 @media screen and (max-width: 600px) {
   .categories-card{
    

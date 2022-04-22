@@ -3,20 +3,17 @@ import { Button, Form, FormGroup, Input, Label, NavLink } from "reactstrap";
 // import <Link></Link> from "react-router-dom"
 
 const Login = () => {
-  const [user, setUser] = useState({
-    
-    email: "",
-    password: "" 
-  })
+  
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
+  
 
   //grabbing users data
   const updateUser = (e) => {
-    const value = e.target.value
-    setUser({
-      ...user, [e.target.name]: value
-    })
+    e.preventDefault()
+  
 
-    console.log(user)
+    console.log()
   }
   return (
     <div className="form-page">
@@ -35,9 +32,9 @@ const Login = () => {
               type="email"
               name="email"
               id="exampleEmail"
-              value={user.email}
+              value={email}
               placeholder="example@example.com"
-              onChange={updateUser}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </FormGroup>
           <FormGroup>
@@ -46,9 +43,9 @@ const Login = () => {
               type="password"
               name="password"
               id="examplePassword"
-              value={user.password}
+              value={password}
               placeholder="********"
-              onChange={updateUser}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
           <Button onClick={updateUser}>
