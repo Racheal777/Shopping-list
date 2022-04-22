@@ -2,11 +2,10 @@ import React, { useState } from "react";
 
 // import Forms from "./Forms";
 
-export default function List({ task, addList, deletedList, updatedList }) {
+export default function List({ task, deletedList, updatedList }) {
   const [check, setCheck] = useState(false);
 
-  console.log('valeus', check);
-
+  console.log(task)
   // const checking = (id) => {
   //   if (check === false) {
   //     setCheck(true);
@@ -15,7 +14,6 @@ export default function List({ task, addList, deletedList, updatedList }) {
   //   }
   // };
   return (
-    <div>
       <main
         className="item"
         style={check || task.status === "Done"
@@ -24,14 +22,14 @@ export default function List({ task, addList, deletedList, updatedList }) {
         }
       >
         <div className="item-name">
-          <input
+          {/* <input
             type="checkbox"
             className="check"
             name="Check"
             checked={check}
             onChange={() => setCheck(!check)}
             
-          />
+          /> */}
 
           <p onClick={() => updatedList(task.id)}>{task.list}</p>
         </div>
@@ -44,6 +42,5 @@ export default function List({ task, addList, deletedList, updatedList }) {
           </button>
         </div>
       </main>
-    </div>
   );
 }

@@ -23,9 +23,6 @@ export default function Lists({ list, addList, deletedList, updatedList }) {
          
       <div className="amounts">
             <p>Current budget GHC</p>
-            
-            
-         
             <div className="all" style={{
             // display: "flex",
             // width: 1500,
@@ -87,9 +84,7 @@ export default function Lists({ list, addList, deletedList, updatedList }) {
             </div>
           
             {list.map((todo, i) => (
-              <div key={i}>
-                <List task={todo} addList={addList} deletedList={deletedList} updatedList={updatedList} />
-              </div>
+                <List task={todo} deletedList={deletedList} updatedList={updatedList} key={i}/>
             )) }
             </div>
             
