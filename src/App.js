@@ -237,7 +237,7 @@ function App() {
                 </>
               )}
             </div>
-            {total && <p>Remaining balance is {total} Ghc</p>}
+            {total && <p>Remaining balance is {budget - total} Ghc</p>}
             
           </div>
         </section>
@@ -255,20 +255,22 @@ function App() {
               <button className="total-btn" onClick={totalAmount}>
                 Get Total
               </button>
+              {total && <h3>Total Amount is {total} GHC</h3>}
+              
             </div>
           )}
         </section>
 
         {budget > 0 && (
           <div className="form-but">
-            <Button color="primary" onClick={toggle} id="TooltipExample">
+            <Button color="primary" onClick={toggle} id="Tooltips">
               {" "}
               <i className="fa-solid fa-circle-plus"></i>
             </Button>
             <Tooltip
               isOpen={edittool}
               placement="right"
-              target="TooltipExample"
+              target="Tooltips"
               toggle={() => {
                 seteditTool(!edittool);
               }}
