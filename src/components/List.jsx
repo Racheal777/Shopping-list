@@ -7,7 +7,7 @@ export default function List({ task, addList, deletedList, updatedList }) {
   const [completed, setCompleted] = useState(false)
 
   // console.log('valeus', check);
-  console.log(task);
+  // console.log(task);
 
   return (
     <div>
