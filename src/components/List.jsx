@@ -13,10 +13,12 @@ export default function List({ task, addList, deletedList, updatedList }) {
     <div>
       <main
         className="item"
-        style={check || task.status === "Done"
+        style={task.status === "Done"
             ? ({ backgroundColor: "grey", textDecoration: "line-through" })
             :{ backgroundColor: "white" }
         }
+
+        
       >
         <div className="item-name">
           <input
@@ -33,7 +35,7 @@ export default function List({ task, addList, deletedList, updatedList }) {
 
         <div className="item-price">
           <p>{task.price}</p>
-          <p>{task.qty}</p>
+          <p>{task.quantity}</p>
           <button onClick={() => deletedList(task.id)}>
             <i className="fa-solid fa-trash-can"></i>
           </button>
