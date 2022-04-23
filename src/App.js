@@ -255,7 +255,7 @@ function App() {
               <button className="total-btn" onClick={totalAmount}>
                 Get Total
               </button>
-              {total && <h3>Total Amount is {total} GHC</h3>}
+              {total && <h3>Amount spent is {total} GHC</h3>}
               
             </div>
           )}
