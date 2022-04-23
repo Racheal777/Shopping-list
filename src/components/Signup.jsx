@@ -43,7 +43,7 @@ const Signup = () => {
 
         <Form className="form" onSubmit={updateUser}>
           <FormGroup>
-            <Label for="exampleEmail">Username</Label>
+            <Label htmlFor="user_name">Username</Label>
             <Input
               type="text"
               name="username"
@@ -56,22 +56,22 @@ const Signup = () => {
 
           <div className="form-name">
             <FormGroup>
-              <Label for="exampleEmail">Firstname</Label>
+              <Label htmlFor="first_name">Firstname</Label>
               <Input
                 type="text"
                 name="firstName"
-                id="exampleEmail"
+                id="first_name"
                 value={firstName}
                 placeholder="Racheal"
                 onChange={(e) => setfirstName(e.target.value)}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="exampleEmail">Lastname</Label>
+              <Label htmlFor="last_name">Lastname</Label>
               <Input
                 type="text"
                 name="lastName"
-                id="exampleEmail"
+                id="last_name"
                 value={lastName}
                 placeholder="Kuranchie"
                 onChange={(e) => setlastName(e.target.value)}
@@ -80,11 +80,11 @@ const Signup = () => {
           </div>
 
           <FormGroup>
-            <Label for="exampleEmail">Email</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               type="email"
               name="email"
-              id="exampleEmail"
+              id="email"
               value={email}
               placeholder="example@example.com"
               onChange={(e) => setEmail(e.target.value)}
@@ -93,7 +93,7 @@ const Signup = () => {
 
           <div className="form-name">
             <FormGroup>
-              <Label for="examplePassword">Password</Label>
+              <Label htmlFor="examplePassword">Password</Label>
               <Input
                 type="password"
                 name="password"
@@ -106,11 +106,11 @@ const Signup = () => {
 
         
             <FormGroup>
-              <Label for="examplePassword">Confirm Password</Label>
+              <Label htmlFor="confirm_pass">Confirm Password</Label>
               <Input
                 type="password"
                 name="confirmPassword"
-                id="confirmPassword"
+                id="confirm_pass"
                 value={confirmPassword}
                 placeholder="********"
                 onChange={(e) => setconfirmPassword(e.target.value)}

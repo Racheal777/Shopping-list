@@ -27,7 +27,7 @@ const Login = () => {
 
         <Form className="form" onSubmit={updateUser}>
           <FormGroup>
-            <Label for="exampleEmail">Email</Label>
+            <Label htmlFor="exampleEmail">Email</Label>
             <Input
               type="email"
               name="email"
@@ -38,7 +38,7 @@ const Login = () => {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="examplePassword">Password</Label>
+            <Label htmlFor="examplePassword">Password</Label>
             <Input
               type="password"
               name="password"
