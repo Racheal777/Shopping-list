@@ -6,7 +6,7 @@ export default function List({ task, deletedList, updatedList }) {
   const [check, setCheck] = useState(false);
   const [completed, setCompleted] = useState(false)
 
-  console.log(task)
+  // console.log(task)
   // const checking = (id) => {
   //   if (check === false) {
   //     setCheck(true);
