@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Input, Label, NavLink } from "reactstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 // import <Link></Link> from "react-router-dom"
 
 const Login = () => {
@@ -7,25 +9,41 @@ const Login = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   
-
-  //grabbing users data
-  const updateUser = (e) => {
-    e.preventDefault()
+   //for navigation
+    const navigate = useNavigate()
+//grabbing users data
+const Login = async (e) => {
+  e.preventDefault()
   
-
-    console.log()
+  try {
+    const login = await axios.post('http://localhost:7070/user/login', {
+      
+      email,
+      password
+    }, {withCredentials: true})
+    console.log(login)
+    if(login.data){
+     navigate('/list') 
+    }
+  } catch (error) {
+    console.log(error)
+    
   }
+
+ 
+}
+
   return (
     <div className="form-page">
       <div className="login-form">
         <div className="form-title">
           <h2>Login</h2>
           <p>
-            Don't have an account? <NavLink href="/">Signup</NavLink>
+            Don't have an account? <NavLink href="/signup">Signup</NavLink>
           </p>
         </div>
 
-        <Form className="form" onSubmit={updateUser}>
+        <Form className="form" onSubmit={Login}>
           <FormGroup>
             <Label htmlFor="exampleEmail">Email</Label>
             <Input
@@ -48,7 +66,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
-          <Button onClick={updateUser}>
+          <Button onClick={Login}>
             Login <i id="icon" className="fa-solid fa-arrow-right"></i>
           </Button>
         </Form>

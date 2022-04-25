@@ -30,8 +30,9 @@ function App() {
   const [ quantity, setQuantity ] = useState(1);
   const [ total, setTotal ] = useState(0);
   const [ lists, setLists ] = useState([]);
-  const [ budget, SetBudget ] = useState([]);
+  const [ budget, SetBudget ] = useState('');
   const [ dark, setDark ] = useState(false);
+  const [user, setUser ] = useState('')
 
   //adding items to the lists
   const addList = async (e) => {
@@ -42,6 +43,7 @@ function App() {
         list: list,
         price: parseInt(price, 10),
         quantity: parseInt(quantity, 10),
+        // userId,
       });
 
       setList("");
@@ -68,9 +70,11 @@ function App() {
 
   //displaying results
   useEffect(() => {
-    const getData = async () => {
-      const results = await axios.get("http://localhost:7070/api/list/getlist");
-      setLists(results.data.allLists);
+    const getData = async (id) => {
+      const results = await axios.get(`http://localhost:7070/user//oneuser/2`);
+      setLists(results.data.person.budget)
+      setLists(results.data.person.list)
+      console.log(results.data)
     };
 
     getData();
@@ -97,7 +101,7 @@ function App() {
     try {
       setLoading(true);
       const budgeted = await axios.put(
-        `http://localhost:7070/api/list/updatebudget/1`,
+        `http://localhost:7070/api/list/updatebudget/2`,
         {
           budget: parseInt(budget, 10),
         }
@@ -114,7 +118,7 @@ function App() {
   useEffect(() => {
     const showBudget = async (id) => {
       const results = await axios.get(
-        `http://localhost:7070/api/list/getbudget/1`
+        `http://localhost:7070/api/list/getbudget/2`
       );
 
       SetBudget(results.data.oneBudget.budget);

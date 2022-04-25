@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import { Button, Form, FormGroup, Input, Label, NavLink } from "reactstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 // import <Link></Link> from "react-router-dom"
 
 const Signup = () => {
@@ -8,15 +10,33 @@ const Signup = () => {
   const [ firstName, setfirstName ] = useState('')
   const [ lastName,  setlastName ] = useState('')
   const [ email, setEmail ] = useState('')
-  const [ username, setUsername ] = useState('')
+  const [ userName, setUserName ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ confirmPassword, setconfirmPassword] = useState('')
 
-
+  //for navigation
+const navigate = useNavigate()
   //grabbing users data
-  const updateUser = (e) => {
+  const saveUser = async (e) => {
     e.preventDefault()
     
+    try {
+      const signup = await axios.post('http://localhost:7070/user/signup', {
+        firstName,
+        lastName,
+        email,
+        userName,
+        password
+      }, {withCredentials: true},)
+      console.log(signup)
+
+      if(signup.data){
+       navigate('/') 
+      }
+    } catch (error) {
+      console.log(error)
+      
+    }
 
     console.log()
   }
@@ -37,20 +57,20 @@ const Signup = () => {
         <div className="form-title">
           <h2>SignUp</h2>
           <p>
-            Already have an account? <NavLink href="/login">Login</NavLink>
+            Already have an account? <NavLink href="/">Login</NavLink>
           </p>
         </div>
 
-        <Form className="form" onSubmit={updateUser}>
+        <Form className="form" onSubmit={saveUser}>
           <FormGroup>
             <Label htmlFor="user_name">Username</Label>
             <Input
               type="text"
               name="username"
               id="exampleEmail"
-              value={username}
+              value={userName}
               placeholder="Racheal23"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </FormGroup>
 
@@ -119,7 +139,7 @@ const Signup = () => {
           </div>
 
           
-          <Button onClick={updateUser}>
+          <Button onClick={saveUser}>
             Register <i id="icon" className="fa-solid fa-arrow-right"></i>
           </Button>
         </Form>
