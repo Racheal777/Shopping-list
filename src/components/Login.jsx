@@ -20,10 +20,14 @@ const Login = async (e) => {
       
       email,
       password
+
     }, {withCredentials: true})
     console.log(login)
     if(login.data){
-     navigate('/list') 
+     navigate('/list')
+    //  console.log(window.localStorage.setItem('userId',login.data.id)) 
+     console.log(JSON.stringify(window.localStorage.setItem('userId',login.data.id)))
+     console.log(JSON.stringify(window.localStorage.setItem('firstName',login.data.firstName)))
     }
   } catch (error) {
     console.log(error)

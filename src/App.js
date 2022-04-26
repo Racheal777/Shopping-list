@@ -2,11 +2,12 @@ import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Lists from "./components/Lists";
-import { useState, useEffect } from "react";
+import { useState, useEffect,} from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
 import { Tooltip } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 import "./form.css";
 
@@ -34,15 +35,19 @@ function App() {
   const [ dark, setDark ] = useState(false);
   const [user, setUser ] = useState('')
 
+  const navigate = useNavigate()
+
   //adding items to the lists
   const addList = async (e) => {
     try {
       e.preventDefault();
       setLoading(true);
-      const add = await axios.post("http://localhost:7070/api/list/savelist", {
+      console.log(JSON.parse(window.localStorage.getItem('userId')))
+      const add = await axios.post(`http://localhost:7070/api/list/savelist/${JSON.parse(localStorage.getItem('userId'))}`, {
         list: list,
         price: parseInt(price, 10),
         quantity: parseInt(quantity, 10),
+        userId: JSON.parse(localStorage.getItem('userId'))
         // userId,
       });
 
@@ -50,7 +55,7 @@ function App() {
       setPrice(0);
       setQuantity(0);
       toggle();
-
+      console.log(add.data)
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -71,8 +76,11 @@ function App() {
   //displaying results
   useEffect(() => {
     const getData = async (id) => {
-      const results = await axios.get(`http://localhost:7070/user//oneuser/2`);
-      setLists(results.data.person.budget)
+      const results = await axios.get(`http://localhost:7070/user//oneuser/${JSON.parse(localStorage.getItem('userId'))}`);
+      if(budget){
+        SetBudget(results.data.person.budget.budget) 
+      }
+     
       setLists(results.data.person.list)
       console.log(results.data)
     };
@@ -85,12 +93,14 @@ function App() {
     try {
       console.log("budgets");
       const budgeted = await axios.post(
-        "http://localhost:7070/api/list/addbudget",
+        `http://localhost:7070/api/list/addbudget/${JSON.parse(localStorage.getItem('userId'))}`,
         {
           budget: parseInt(budget, 10),
+          userId: JSON.parse(localStorage.getItem('userId'))
         }
       );
       Ontoggle();
+      console.log(budgeted.data)
     } catch (error) {
       console.log(error);
     }
@@ -101,13 +111,14 @@ function App() {
     try {
       setLoading(true);
       const budgeted = await axios.put(
-        `http://localhost:7070/api/list/updatebudget/2`,
+        `http://localhost:7070/api/list/updatebudget/${id}`,
         {
           budget: parseInt(budget, 10),
         }
       );
 
       Ontoggles();
+      console.log("updated", budgeted)
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -116,12 +127,15 @@ function App() {
 
   //displaying  a budget
   useEffect(() => {
-    const showBudget = async (id) => {
+    const showBudget = async () => {
       const results = await axios.get(
-        `http://localhost:7070/api/list/getbudget/2`
+        `http://localhost:7070/api/list/getbudget/${JSON.parse(localStorage.getItem('userId'))}`
       );
-
-      SetBudget(results.data.oneBudget.budget);
+        if(budget){
+          SetBudget(results.data.oneBudget.budget);
+        }
+      
+      // console.log(results.data)
     };
     showBudget();
   }, [loading]);
@@ -155,6 +169,7 @@ function App() {
           }
         );
       }
+      console.log(data)
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -183,18 +198,36 @@ function App() {
     }
   };
 
+  const logout = async() => {
+    try {
+     const loggingOut =  await axios.get('http://localhost:7070/user/logout', {
+        withCredentials: true
+      })
+
+      if(loggingOut.data){
+        navigate('/')
+        window.localStorage.removeItem('userId')
+        window.localStorage.removeItem('firstName')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
   // console.log(dark)
 
   return (
     <div className="App">
-      <div className="btn">
+      <div className="btn-top">
         <button className="toggle" onClick={darkMode}>
           <i className="fa-solid fa-moon"></i>
         </button>
+
+        <button className="logout" onClick={logout}>Logout</button>
       </div>
 
       <div className="main-page">
-        <p>Hello, Racheal what are you going to buy</p>
+        <p>Hello, {window.localStorage.getItem('firstName')} what are you going to buy</p>
         <section>
           <div className="text"></div>
         </section>
@@ -206,7 +239,7 @@ function App() {
             <div className="all" style={{}}>
               <h4>{budget}</h4>
 
-              {budget ? (
+              {/* {budget ? (
                 <>
                   <div>
                     <Button
@@ -259,7 +292,7 @@ function App() {
                     </ModalFooter>
                   </Modal>
                 </>
-              ) : (
+              ) : ( */}
                 <>
                   <div>
                     <Button
@@ -311,7 +344,7 @@ function App() {
                     </ModalFooter>
                   </Modal>
                 </>
-              )}
+              {/* )} */}
             </div>
             {lists.length >= 1 && (
               <p>Remaining balance is {budget - total} Ghc</p>
