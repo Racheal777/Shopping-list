@@ -26,8 +26,8 @@ const Login = async (e) => {
     if(login.data){
      navigate('/list')
     //  console.log(window.localStorage.setItem('userId',login.data.id)) 
-     console.log(JSON.stringify(window.localStorage.setItem('userId',login.data.id)))
-     console.log(JSON.stringify(window.localStorage.setItem('firstName',login.data.firstName)))
+     window.localStorage.setItem('userId',JSON.stringify(login.data.id))
+     window.localStorage.setItem('firstName',JSON.stringify(login.data.firstName))
     }
   } catch (error) {
     console.log(error)

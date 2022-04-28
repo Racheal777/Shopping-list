@@ -17,6 +17,10 @@ html{
   transition: all 0.5s ease-in;
 }
 
+body{
+  transition: all 0.7s ease-in;
+}
+
 html.dark{
   --primary-color: white;
     --secondary-color: #333;
@@ -49,31 +53,19 @@ html.dark{
   min-height: 100vh;
 }
 
+span{
+  font-weight: bold;
+  color: rgb(21, 21, 91);
+  font-size: 1.5em;
+  /* font-family: cursive; */
+  padding: 0 7px;
+}
 .main-page{
   text-align: center;
   padding: 1em;
   /* margin: auto; */
   /* width: 60%; */
 
-}
-.categories{
-  display: flex;
-  justify-content: center;
-  margin: 2rem auto;
-  /* padding: 0.7rem 0.5rem; */
-}
-
-.categories-card{
- background-color: rgb(21, 21, 91); 
- border-radius: 5px;
- color: white;
- padding: 0.7em 0.4em;
- margin: auto 5em;
- font-size: 0.7em;
- min-width: 15%;
- box-shadow: 0px 6px 5px 2px rgba(0,0,0,0.2),
- 0px 6px 5px -3px rgba(0,0,0,0.3);
-text-align: center;
 }
 
 .title{
@@ -181,6 +173,9 @@ text-align: center;
   0px 6px 3px -2px rgba(178, 178, 178, 0.3);
 }
 
+.edit{
+  margin: 0 20px;
+}
 .not{
   color: rgb(21, 21, 91);
   font-size: 1.2em;
@@ -198,7 +193,7 @@ text-align: center;
 
 .all button{
  
-  margin: auto;
+  /* margin: auto; */
   padding: 5px 10px;
 }
 

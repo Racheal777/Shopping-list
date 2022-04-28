@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Lists from "./components/Lists";
-import { useState, useEffect,} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, ModalFooter, ModalHeader, ModalBody } from "reactstrap";
@@ -13,49 +13,54 @@ import "./form.css";
 
 function App() {
   // Modal open state
-  const [ modal, setModal ] = useState(false);
-  const [ modals, setModals ] = useState(false);
-  const [ modalss, setModalss ] = useState(false);
-  const [ tooltipOpen, setTooltipOpen ] = useState(false);
-  const [ tool, setTool ] = useState(false);
-  const [ edittool, seteditTool ] = useState(false);
-  const [ loading, setLoading ] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [modals, setModals] = useState(false);
+  const [modalss, setModalss] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tool, setTool] = useState(false);
+  const [edittool, seteditTool] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Toggle for Modal
   const toggle = () => setModal(!modal);
   const Ontoggle = () => setModals(!modals);
   const Ontoggles = () => setModalss(!modalss);
 
-  const [ list, setList ] = useState("");
-  const [ price, setPrice ] = useState(0);
-  const [ quantity, setQuantity ] = useState(1);
-  const [ total, setTotal ] = useState(0);
-  const [ lists, setLists ] = useState([]);
-  const [ budget, SetBudget ] = useState('');
-  const [ dark, setDark ] = useState(false);
-  const [user, setUser ] = useState('')
+  const [list, setList] = useState("");
+  const [price, setPrice] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [total, setTotal] = useState(0);
+  const [lists, setLists] = useState([]);
+  const [budget, SetBudget] = useState(0);
+  const [dark, setDark] = useState(false);
+  // const [user, setUser] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   //adding items to the lists
   const addList = async (e) => {
     try {
       e.preventDefault();
       setLoading(true);
-      console.log(JSON.parse(window.localStorage.getItem('userId')))
-      const add = await axios.post(`http://localhost:7070/api/list/savelist/${JSON.parse(localStorage.getItem('userId'))}`, {
-        list: list,
-        price: parseInt(price, 10),
-        quantity: parseInt(quantity, 10),
-        userId: JSON.parse(localStorage.getItem('userId'))
-        // userId,
-      });
+      console.log(JSON.parse(window.localStorage.getItem("userId")));
+      const add = await axios.post(
+        `http://localhost:7070/api/list/savelist/${JSON.parse(
+          localStorage.getItem("userId")
+        )}`,
+        {
+          list: list,
+          price: parseInt(price, 10),
+          quantity: parseInt(quantity, 10),
+          userId: JSON.parse(localStorage.getItem("userId")),
+          // userId,
+        }
+      );
 
       setList("");
       setPrice(0);
       setQuantity(0);
       toggle();
-      console.log(add.data)
+      console.log(add.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -76,13 +81,18 @@ function App() {
   //displaying results
   useEffect(() => {
     const getData = async (id) => {
-      const results = await axios.get(`http://localhost:7070/user//oneuser/${JSON.parse(localStorage.getItem('userId'))}`);
-      if(budget){
-        SetBudget(results.data.person.budget.budget) 
+      const results = await axios.get(
+        `http://localhost:7070/user//oneuser/${JSON.parse(localStorage.getItem("userId")
+        )}`
+      );
+      if (budget) {
+        SetBudget(results.data.person.budget.budget);
+      } else {
+        SetBudget(results.data.person.budget.budget);
       }
-     
-      setLists(results.data.person.list)
-      console.log(results.data)
+
+      setLists(results.data.person.list);
+      console.log(results.data);
     };
 
     getData();
@@ -93,14 +103,19 @@ function App() {
     try {
       console.log("budgets");
       const budgeted = await axios.post(
-        `http://localhost:7070/api/list/addbudget/${JSON.parse(localStorage.getItem('userId'))}`,
+        `http://localhost:7070/api/list/addbudget/${JSON.parse(
+          localStorage.getItem("userId")
+        )}`,
         {
           budget: parseInt(budget, 10),
-          userId: JSON.parse(localStorage.getItem('userId'))
+          userId: JSON.parse(localStorage.getItem("userId")),
         }
       );
+      if(budgeted){
+        window.localStorage.setItem('budgetId',JSON.stringify(budgeted.data.newBudget.id))
+      }
       Ontoggle();
-      console.log(budgeted.data)
+      console.log(budgeted.data);
     } catch (error) {
       console.log(error);
     }
@@ -109,16 +124,19 @@ function App() {
   //updating a budget
   const updateBudget = async (id) => {
     try {
+      console.log("ygyyfyfty");
       setLoading(true);
       const budgeted = await axios.put(
-        `http://localhost:7070/api/list/updatebudget/${id}`,
+        `http://localhost:7070/api/list/updatebudget/${JSON.parse(
+          localStorage.getItem("budgetId")
+        )}`,
         {
           budget: parseInt(budget, 10),
         }
       );
-
       Ontoggles();
-      console.log("updated", budgeted)
+      console.log("updated", budgeted);
+      
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -129,12 +147,15 @@ function App() {
   useEffect(() => {
     const showBudget = async () => {
       const results = await axios.get(
-        `http://localhost:7070/api/list/getbudget/${JSON.parse(localStorage.getItem('userId'))}`
+        `http://localhost:7070/api/list/getbudget/${JSON.parse(
+          localStorage.getItem("userId")
+        )}`
       );
-        if(budget){
-          SetBudget(results.data.oneBudget.budget);
-        }
-      
+      if (budget) {
+        SetBudget(results.data.oneBudget.budget);
+        // SetBudget(results.data.person.budget.budget);
+      }
+
       // console.log(results.data)
     };
     showBudget();
@@ -160,7 +181,6 @@ function App() {
             status: "Done",
           }
         );
-        
       } else {
         const pendingstatus = await axios.put(
           `http://localhost:7070/api/list/updatelist/${oneList.id}`,
@@ -169,7 +189,7 @@ function App() {
           }
         );
       }
-      console.log(data)
+      console.log(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -198,22 +218,21 @@ function App() {
     }
   };
 
-  const logout = async() => {
+  const logout = async () => {
     try {
-     const loggingOut =  await axios.get('http://localhost:7070/user/logout', {
-        withCredentials: true
-      })
+      const loggingOut = await axios.get("http://localhost:7070/user/logout", {
+        withCredentials: true,
+      });
 
-      if(loggingOut.data){
-        navigate('/')
-        window.localStorage.removeItem('userId')
-        window.localStorage.removeItem('firstName')
+      if (loggingOut.data) {
+        navigate("/");
+        window.localStorage.removeItem("userId");
+        window.localStorage.removeItem("firstName");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
-  }
+  };
   // console.log(dark)
 
   return (
@@ -223,11 +242,17 @@ function App() {
           <i className="fa-solid fa-moon"></i>
         </button>
 
-        <button className="logout" onClick={logout}>Logout</button>
+        <button className="logout" onClick={logout}>
+          Logout
+        </button>
       </div>
 
       <div className="main-page">
-        <p>Hello, {window.localStorage.getItem('firstName')} what are you going to buy</p>
+        <p>
+          Hello, <span>{JSON.parse(localStorage.getItem("firstName"))}</span> 
+          How are you spending your <span> Ghc {budget}.00</span>  
+         
+        </p>
         <section>
           <div className="text"></div>
         </section>
@@ -237,9 +262,9 @@ function App() {
             <p>Current budget GHC</p>
 
             <div className="all" style={{}}>
-              <h4>{budget}</h4>
+              <h4>{budget}.00</h4>
 
-              {/* {budget ? (
+              {/* {budget ? ( */}
                 <>
                   <div>
                     <Button
@@ -247,6 +272,7 @@ function App() {
                       onClick={Ontoggles}
                       id="TooltipExample"
                       disabled={!budget}
+                      className="edit"
                     >
                       <i className="fa-solid fa-circle-plus"></i>
                       Edit
@@ -285,66 +311,68 @@ function App() {
                       <Button
                         color="success"
                         onClick={updateBudget}
-                        disabled={!budget}
+                        // disabled={!budget}
                       >
                         Edit{" "}
                       </Button>
                     </ModalFooter>
                   </Modal>
                 </>
-              ) : ( */}
-                <>
-                  <div>
+             
+              <>
+
+                <div>
+                  <Button
+                    color="success"
+                    onClick={() => Ontoggle()}
+                    id="TooltipExample"
+                    
+                    disabled = {!! budget }
+                  >
+                    <i className="fa-solid fa-circle-plus"></i>
+                  </Button>
+
+                  <Tooltip
+                    isOpen={tooltipOpen}
+                    placement="right"
+                    target="TooltipExample"
+                    toggle={() => {
+                      setTooltipOpen(!tooltipOpen);
+                    }}
+                  >
+                    Add Your Budget
+                  </Tooltip>
+                </div>
+
+                <Modal isOpen={modals} toggle={Ontoggle}>
+                  <ModalHeader toggle={Ontoggle} className="modals">
+                    Add Your Budget
+                  </ModalHeader>
+                  <ModalBody className="modals">
+                    <form className="forms" onSubmit={addBudget}>
+                      <div>
+                        <label> Amount</label>
+                        <input
+                          type="number"
+                          placeholder="enter your current budget"
+                          value={budget}
+                          onChange={(e) => SetBudget(e.target.value)}
+                        />
+                      </div>
+                    </form>
+                  </ModalBody>
+                  <ModalFooter className="modals">
                     <Button
                       color="success"
-                      onClick={Ontoggle}
-                      id="TooltipExample"
-                      // disabled = {budget}
+                      onClick={addBudget}
+                      disabled={!budget}
                     >
-                      <i className="fa-solid fa-circle-plus"></i>
+                      Add{" "}
                     </Button>
-
-                    <Tooltip
-                      isOpen={tooltipOpen}
-                      placement="right"
-                      target="TooltipExample"
-                      toggle={() => {
-                        setTooltipOpen(!tooltipOpen);
-                      }}
-                    >
-                      Add Your Budget
-                    </Tooltip>
-                  </div>
-
-                  <Modal isOpen={modals} toggle={Ontoggle}>
-                    <ModalHeader toggle={Ontoggle} className="modals">
-                      Add Your Budget
-                    </ModalHeader>
-                    <ModalBody className="modals">
-                      <form className="forms" onSubmit={addBudget}>
-                        <div>
-                          <label> Amount</label>
-                          <input
-                            type="number"
-                            placeholder="enter your current budget"
-                            value={budget}
-                            onChange={(e) => SetBudget(e.target.value)}
-                          />
-                        </div>
-                      </form>
-                    </ModalBody>
-                    <ModalFooter className="modals">
-                      <Button
-                        color="success"
-                        onClick={addBudget}
-                        disabled={!budget}
-                      >
-                        Add{" "}
-                      </Button>
-                    </ModalFooter>
-                  </Modal>
-                </>
-              {/* )} */}
+                  </ModalFooter>
+                </Modal>
+              </>
+             {/* )}  */}
             </div>
             {lists.length >= 1 && (
               <p>Remaining balance is {budget - total} Ghc</p>
