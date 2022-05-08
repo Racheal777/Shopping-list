@@ -13,27 +13,40 @@ const Signup = () => {
   const [ userName, setUserName ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ confirmPassword, setconfirmPassword] = useState('')
+  const [passworderror, setPassworderror ] = useState('')
+  const [emailerror, setEmailerror] = useState('')
+  const [usernameerror, setUsernameerror] = useState('')
 
   //for navigation
 const navigate = useNavigate()
   //grabbing users data
   const saveUser = async (e) => {
+    try {
     e.preventDefault()
     
-    try {
-      const signup = await axios.post('http://localhost:7070/user/signup', {
-        firstName,
-        lastName,
-        email,
-        userName,
-        password
-      }, {withCredentials: true},)
-      console.log(signup)
-
-      if(signup.data){
-       navigate('/') 
-      }
+    if(password === confirmPassword){
+        const signup = await axios.post('http://localhost:7070/user/signup', {
+          firstName,
+          lastName,
+          email,
+          userName,
+          password
+        }, {withCredentials: true},)
+        console.log(signup)
+  
+        if(signup.data){
+         navigate('/') 
+        }
+    }else{
+setPassworderror('Password do not match')
+    }
+    
     } catch (error) {
+      if(error.message.includes('400')){
+        setEmailerror('Email not available')
+      }else if(error.message.includes('409')){
+        setUsernameerror('username already taken')
+      }
       console.log(error)
       
     }
@@ -41,15 +54,7 @@ const navigate = useNavigate()
     console.log()
   }
 
-  //confirming password
-  // const confirm = () => {
-  //   if(user.password === user.confirmPassword){
-  //     setIsconfirm(true)
-  //   }else{
-  //     setIsconfirm(false)
-  //   }
-  // }
-  // console.log(isconfirm)
+  
   
   return (
     <div className="form-page">
@@ -71,7 +76,9 @@ const navigate = useNavigate()
               value={userName}
               placeholder="Racheal23"
               onChange={(e) => setUserName(e.target.value)}
+              
             />
+            <span>{usernameerror} </span>
           </FormGroup>
 
           <div className="form-name">
@@ -109,6 +116,7 @@ const navigate = useNavigate()
               placeholder="example@example.com"
               onChange={(e) => setEmail(e.target.value)}
             />
+            <span>{emailerror} </span>
           </FormGroup>
 
           <div className="form-name">
@@ -135,12 +143,14 @@ const navigate = useNavigate()
                 placeholder="********"
                 onChange={(e) => setconfirmPassword(e.target.value)}
               />
+              <span>{passworderror} </span>
             </FormGroup>
           </div>
 
           
-          <Button onClick={saveUser}>
+          <Button onClick={saveUser} disabled={!email && !firstName && !lastName && !userName && !password && !confirmPassword}>
             Register <i id="icon" className="fa-solid fa-arrow-right"></i>
+            
           </Button>
         </Form>
       </div>

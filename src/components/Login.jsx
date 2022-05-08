@@ -8,6 +8,7 @@ const Login = () => {
   
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
+  const [error, setError] = useState('')
   
    //for navigation
     const navigate = useNavigate()
@@ -30,6 +31,9 @@ const Login = async (e) => {
      window.localStorage.setItem('firstName',JSON.stringify(login.data.firstName))
     }
   } catch (error) {
+    if(error.message.includes('401')){
+      setError("Email or password does not exist")
+    }
     console.log(error)
     
   }
@@ -48,6 +52,7 @@ const Login = async (e) => {
         </div>
 
         <Form className="form" onSubmit={Login}>
+          <span>{error}</span>
           <FormGroup>
             <Label htmlFor="exampleEmail">Email</Label>
             <Input
@@ -70,7 +75,7 @@ const Login = async (e) => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
-          <Button onClick={Login}>
+          <Button onClick={Login} disabled={ !email && !password}>
             Login <i id="icon" className="fa-solid fa-arrow-right"></i>
           </Button>
         </Form>

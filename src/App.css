@@ -52,7 +52,11 @@ html.dark{
   padding: 1em;
   min-height: 100vh;
 }
-
+Form span{
+  color: red;
+  text-align: center;
+  font-size: 1em;
+}
 span{
   font-weight: bold;
   color: rgb(21, 21, 91);
